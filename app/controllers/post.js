@@ -1,8 +1,7 @@
-function extraiContato(req){
-
 module.exports = function (app) {
   var Post = app.models.post;
   var controller = {};
+
   controller.listaPosts = function(req, res) {
     var promise = Post.find().exec();
     promise.then(
@@ -27,6 +26,5 @@ module.exports = function (app) {
         }
       );
     }
+     return controller;
   };
-  return controller;
-};

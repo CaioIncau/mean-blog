@@ -3,6 +3,7 @@ var auth = require('../middleware/auth');
 
 module.exports = function(app) {
     var controller = app.controllers.post;
+    console.log(app.controllers.post);
 
 
     app.get('/', function(req, res) {
