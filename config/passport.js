@@ -10,16 +10,19 @@ module.exports = function() {
         passReqToCallback : true 
     }, function(req, email, password, done) {
     	 User.findOne({ 'email' :  email }, function(err, user) {
-            // if there are any errors, return the error before anything else
+            console.log(user); 
+            console.log(!user.validPassword(password));
             if (err)
                 return done(err);
 
             // if no user is found, return the message
             if (!user)
+                console.log("usuario nao encontrado");
                 return done(null, false); // req.flash is the way to set flashdata using connect-flash
 
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
+                console.log("senha invalida");
                 return done(null, false, req); // create the loginMessage and save it to session as flashdata
 
             console.log("logou");

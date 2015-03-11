@@ -3,6 +3,7 @@ var passport = require('passport');
 module.exports = function(app) {
     app.get('/', function(req, res) {
         res.render('index');
+        console.log(req.user);
     });
     // route to test if the user is logged in or not 
     app.get('/loggedin', function(req, res) 

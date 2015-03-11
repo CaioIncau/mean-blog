@@ -11,12 +11,8 @@ var db = require('mongoose');
     module.exports = function(app){
 
         var userSchema = Schema({
-
-        local            : {
             email        : String,
-            password     : String,
-        }
-
+            password     : String
     });
 
     // methods ======================
@@ -27,7 +23,7 @@ var db = require('mongoose');
 
     // checking if password is valid
     userSchema.methods.validPassword = function(password) {
-        return bcrypt.compareSync(password, this.password);
+        return bcrypt.compareSync(bcrypt.hashSync(password, bcrypt.genSaltSync(8), null), bcrypt.hashSync(this.password, bcrypt.genSaltSync(8), null));
     };
 
 
