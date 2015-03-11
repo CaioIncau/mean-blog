@@ -230,7 +230,7 @@ ul.social li a:hover:before{
 		text-align: center;
 	}
 	
-	.fa-bars{
+	.main-menu .fa-bars{
 		float: left;
 		display: inline-block;
 		outline: 0 !important;

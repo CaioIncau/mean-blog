@@ -27,4 +27,9 @@ angular.module('myblog', ['ngRoute', 'ngResource'])
       controller: 'HomeController'
     });
 
+    $routeProvider.when('/login', {
+      templateUrl: 'partials/login.ejs',
+      controller: 'HomeController'
+    });
+
 });

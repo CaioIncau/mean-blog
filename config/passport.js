@@ -3,7 +3,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 
 module.exports = function() {
-    var Usuario = mongoose.model('Usuario');
+    var User = mongoose.model('Usuario');
     passport.use("local-login", new LocalStrategy({
         usernameField : 'email',
         passwordField : 'password',
@@ -16,11 +16,11 @@ module.exports = function() {
 
             // if no user is found, return the message
             if (!user)
-                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false); // req.flash is the way to set flashdata using connect-flash
 
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                return done(null, false, req); // create the loginMessage and save it to session as flashdata
 
             console.log("logou");
             // all is well, return successful user
