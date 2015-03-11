@@ -1,0 +1,12 @@
+<form>
+	<label for="title">Título:</label>
+		<input type="text"
+		        name="title" required ng-model="post.title">
+	<input type="hidden" value="false" ng-model="post.private" />
+	<label for="text">Texto:</label>
+		    <input type="text"
+		        name="text" required ng-model="post.text">
+	<button type="submit" class="btn btn-primary">
+			Salvar
+		</button>
+</form>

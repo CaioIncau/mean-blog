@@ -1,6 +1,10 @@
 var passport = require('passport');
 var auth = require('../middleware/auth');
+
 module.exports = function(app) {
+    var controller = app.controllers.post;
+
+
     app.get('/', function(req, res) {
         res.render('index');
         console.log(req.user);
@@ -9,6 +13,11 @@ module.exports = function(app) {
         res.redirect('/#/blog');
         console.log(req.user);
     });
+
+    app.route('/contatos')
+        .get(controller.listaPosts)
+        .post(auth, controller.salvaPost);
+
     // route to test if the user is logged in or not 
     app.get('/loggedin', function(req, res) 
     	{ res.send(req.isAuthenticated() ? req.user : '0'); }); 
