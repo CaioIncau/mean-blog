@@ -10,15 +10,19 @@ module.exports = function() {
         passReqToCallback : true 
     }, function(req, email, password, done) {
     	 User.findOne({ 'email' :  email }, function(err, user) {
-            console.log(user); 
-            console.log(!user.validPassword(password));
+
+            if (user && user.validPassword(password))
+                console.log("logou");
+                return done(null, user);
+
             if (err)
                 return done(err);
 
-            // if no user is found, return the message
             if (!user)
                 console.log("usuario nao encontrado");
                 return done(null, false); // req.flash is the way to set flashdata using connect-flash
+
+
 
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
@@ -37,7 +41,7 @@ module.exports = function() {
 	});
 
 	passport.deserializeUser(function(id, done) {
-      Usuario.findById(id).exec()
+      User.findById(id).exec()
       .then(function(usuario) {
           done(null, usuario);
       });

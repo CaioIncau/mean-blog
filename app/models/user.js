@@ -1,7 +1,7 @@
 // app/models/user.js
 // load the things we need
 var Schema = require('mongoose').Schema;
-var bcrypt   = require('bcrypt-nodejs');
+var md5 = require('MD5');
 var db = require('mongoose');
 
 // define the schema for our user model
@@ -23,7 +23,7 @@ var db = require('mongoose');
 
     // checking if password is valid
     userSchema.methods.validPassword = function(password) {
-        return bcrypt.compareSync(bcrypt.hashSync(password, bcrypt.genSaltSync(8), null), bcrypt.hashSync(this.password, bcrypt.genSaltSync(8), null));
+        return  md5(this.password) == md5(password);
     };
 
 
