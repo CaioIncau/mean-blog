@@ -1,0 +1,8 @@
+<h2>Posts</h2>
+	<% posts.forEach( function( post ){ %>
+	<div class="post">
+		<p class="post-date"><%= post.createdAt.toDateString() %></p>
+	  	<p class="post-title"><%= post.title %></p>
+	  	<p class= "post-text"><%- post.text %></p>
+	</div>
+	<% }); %>
