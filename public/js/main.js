@@ -1,4 +1,4 @@
-angular.module('myblog', ['ngRoute', 'ngResource'])
+angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
 	.config(function($routeProvider, $httpProvider) {
 
      $httpProvider.interceptors.push(function($q, $location) {
