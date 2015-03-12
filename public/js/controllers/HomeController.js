@@ -1,6 +1,8 @@
 angular.module('myblog').controller('HomeController',
   function($scope, $routeParams, $resource) {
   	var Post = $resource('/posts/:id');
+
+
   	if($routeParams.PostId) {
 	  	Post.get({id: $routeParams.postId},
 	    function(post) {
@@ -16,11 +18,14 @@ angular.module('myblog').controller('HomeController',
 	}else{
 		$scope.post = new Post();
 	}
-	$scope.salva = function() {
+
+
+  	$scope.salva = function() {
+		console.log($scope.post)
 		$scope.post.$save();
 	};
   
-  Post.query(function(Posts) {
+  Post.query(function(posts) {
       $scope.posts = posts;
    });
 });

@@ -16,7 +16,8 @@ module.exports = function (app) {
   };
 
   controller.salvaPost = function(req, res) {
-      Post.create(req.body)
+    post = new Post(req.body);
+      Post.create(post)
       .then(
         function(post) {
           res.status(201).json(post);

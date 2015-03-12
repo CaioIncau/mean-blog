@@ -1,4 +1,6 @@
 var db = require('mongoose');
+var findOrCreate = require('mongoose-findorcreate');
+
 
 
 module.exports = function(app){
@@ -11,6 +13,7 @@ module.exports = function(app){
 		tags: [],
 		createdAt:  { type: Date, default: Date.now }
 	});
+	 post.plugin(findOrCreate);
 
 	return db.model('post', post);
 

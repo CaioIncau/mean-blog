@@ -42,11 +42,17 @@ angular.module('myblog', ['ngRoute', 'ngResource'])
 
     $routeProvider.when('/blog', {
       templateUrl: 'partials/blog.ejs',
-      resolve: {
+      controller: 'HomeController'
+    });
+
+    $routeProvider.when('/post', {
+    	templateUrl: 'partials/formPost.ejs', 
+    	resolve: {
           loggedin: checkLoggedin
         },
       controller: 'HomeController'
     });
+
     $routeProvider.when('/', {
       templateUrl: 'partials/about.ejs',
       controller: 'HomeController'

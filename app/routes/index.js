@@ -15,7 +15,7 @@ module.exports = function(app) {
         console.log(req.user);
     });
 
-    app.route('/contatos')
+    app.route('/posts')
         .get(controller.listaPosts)
         .post(auth, controller.salvaPost);
 
