@@ -26,6 +26,6 @@ module.exports = function (app) {
           console.log(erro);res.status(500).json(erro);
         }
       );
-    }
+    };
      return controller;
   };

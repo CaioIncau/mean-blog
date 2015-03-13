@@ -41,12 +41,12 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
 
 
     $routeProvider.when('/blog', {
-      templateUrl: 'partials/blog.ejs',
+      templateUrl: 'partials/blog.html',
       controller: 'HomeController'
     });
 
     $routeProvider.when('/post', {
-    	templateUrl: 'partials/formPost.ejs', 
+    	templateUrl: 'partials/formPost.html', 
     	resolve: {
           loggedin: checkLoggedin
         },
@@ -54,28 +54,28 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
     });
 
     $routeProvider.when('/', {
-      templateUrl: 'partials/about.ejs',
+      templateUrl: 'partials/about.html',
       controller: 'HomeController'
     });
     $routeProvider.when('/about', {
-      templateUrl: 'partials/about.ejs',
+      templateUrl: 'partials/about.html',
       controller: 'HomeController'
     });
     $routeProvider.when('/work', {
-      templateUrl: 'partials/work.ejs',
+      templateUrl: 'partials/work.html',
       controller: 'HomeController'
     });
     $routeProvider.when('/skills', {
-      templateUrl: 'partials/skills.ejs',
+      templateUrl: 'partials/skills.html',
       controller: 'HomeController'
     });
      $routeProvider.when('/contato', {
-      templateUrl: 'partials/contato.ejs',
+      templateUrl: 'partials/contato.html',
       controller: 'HomeController'
     });
 
     $routeProvider.when('/login', {
-      templateUrl: 'partials/login.ejs',
+      templateUrl: 'partials/login.html',
       controller: 'HomeController'
     });
 

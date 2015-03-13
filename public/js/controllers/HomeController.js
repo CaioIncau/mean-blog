@@ -1,4 +1,4 @@
-angular.module('myblog').controller('HomeController',
+angular.module('myblog').controller('HomeController',['$scope', '$routeParams', '$resource',
   function($scope, $routeParams, $resource) {
   	var Post = $resource('/posts/:id');
 
@@ -28,4 +28,4 @@ angular.module('myblog').controller('HomeController',
   Post.query(function(posts) {
       $scope.posts = posts;
    });
-});
+}]);

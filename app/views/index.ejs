@@ -4,9 +4,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Site pessoal do Caio Incau, usado para contatos profissionais ou casuais.">
 		<title>Caio Incau</title>
+		<!-- build:css css/style.css -->
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/index.css" />
-		 <link href='css/bodoini.css' rel='stylesheet' type='text/css'>
+		 <link href='css/bodoini.css' rel='stylesheet'/>
+		<!-- endbuild -->
+
 		 <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
@@ -25,16 +28,25 @@
 				<div ng-view></div>
 
 		</section>
+	<!-- build:js_lib js/modernizr.js -->
 	<script src="/vendor/jquery/dist/jquery.js"></script>
 	<script src="/js/toggle.js"></script>
 	<script src="vendor/angular/angular.js"></script>
 	<script src="vendor/angular-resource/angular-resource.js"></script>
     <script src="vendor/angular-route/angular-route.js"></script>
     <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <!-- endbuild -->
 
-		      <script src="js/main.js"></script>
+	<!-- build:js js/app.js -->
+	 <script src="js/main.js"></script>
 
-         <script src="js/controllers/HomeController.js"></script>
+	<script src="js/controllers/HomeController.js"></script>
+	<script src="js/controllers/LoginController.js"></script>
+
+	<!-- inject:templates:js --><!-- endinject -->
+
+	<!-- endbuild -->
+
 
 	</body>
 </html>
