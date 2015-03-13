@@ -1,0 +1,1 @@
+$(".fa-bars").on("click",function(a){$("nav a").slideToggle(),a.preventDefault()});

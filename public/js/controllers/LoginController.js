@@ -1,4 +1,4 @@
-angular.module('myblog').controller('LoginController',['$scope', '$rootScope', '$http', '$location'
+angular.module('myblog').controller('LoginController',['$scope', '$rootScope', '$http', '$location',
  function($scope, $rootScope, $http, $location) {
   // This object will be filled by the form
   $scope.user = {};

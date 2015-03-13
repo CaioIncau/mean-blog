@@ -11,7 +11,9 @@ var gulp = require('gulp'),
     gulpSequence = require('gulp-sequence'),
     autoprefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
+    gutil = require('gulp-util'),
     concat = require('gulp-concat');
+
 
 
 gulp.task('move',['clean_all'], function(){
@@ -61,10 +63,9 @@ gulp.task('css', function(){
     	.pipe(gulp.dest('dist/public/css'));
 });
 
-gulp.task('js', function () {
-   return gulp.src(['public/js/**/*.js','public/js/*.js'])
-   	  .pipe(ngmin())
-      .pipe(uglify())
+return gulp.task('js', function () {
+    gulp.src(['public/js/**/*.js','public/js/*.js'])
+      .pipe(uglify().on('error', gutil.log))
       .pipe(concat('app.js'))
       .pipe(gulp.dest('dist/public/js'));
 });
