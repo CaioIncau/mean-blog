@@ -66,17 +66,8 @@ gulp.task('js', function () {
    	  .pipe(ngmin())
       .pipe(uglify())
       .pipe(concat('app.js'))
-      .pipe(gulp.dest('dist/js'));
+      .pipe(gulp.dest('dist/public/js'));
 });
-
-gulp.task('html', function () {
-   return gulp.src(['public/js/**/*.js','public/js/*.js'])
-   	  .pipe(ngmin())
-      .pipe(uglify())
-      .pipe(concat('app.js'))
-      .pipe(gulp.dest('dist/js'));
-});
-
 
 gulp.task('usemin', ['views','html','css','js'], function() {
   gulp.src('./app/views/index.ejs')
