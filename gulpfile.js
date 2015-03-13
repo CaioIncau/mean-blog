@@ -8,7 +8,10 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     rev = require('gulp-rev'),
     clean = require('gulp-clean'),
-    gulpSequence = require('gulp-sequence');
+    gulpSequence = require('gulp-sequence'),
+    autoprefixer = require('gulp-autoprefixer'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat');
 
 gulp.task('views', function() {
   return gulp.src('./public/partials/*.html')
@@ -28,7 +31,46 @@ gulp.task('clean_tmp', function () {
              .pipe(clean());
 });
 
-gulp.task('usemin', ['views'], function() {
+gulp.task('html', function() {
+  var opts = {
+    conditionals: true,
+    spare: true,
+    empty: false,
+    comments: false,
+    quotes: false
+  };
+ 
+  return gulp.src('public/partials/*.html')
+    .pipe(minifyHtml(opts))
+    .pipe(gulp.dest('dist/html'));
+});
+
+gulp.task('css', function(){
+	gulp.src('public/css/*.css')
+	    .pipe(minifyCss())
+	    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
+	    .pipe(concat('style.min.css'))
+    	.pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('js', function () {
+   return gulp.src(['public/js/**/*.js','public/js/*.js'])
+   	  .pipe(ngmin())
+      .pipe(uglify())
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('html', function () {
+   return gulp.src(['public/js/**/*.js','public/js/*.js'])
+   	  .pipe(ngmin())
+      .pipe(uglify())
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('dist/js'));
+});
+
+
+gulp.task('usemin', ['views','html','css','js'], function() {
   gulp.src('./app/views/index.ejs')
       .pipe(inject(gulp.src('../.tmp/js/templates.js', {read: false}),
         {
@@ -38,11 +80,7 @@ gulp.task('usemin', ['views'], function() {
         }
       ))
       .pipe(usemin({
-      	  assetsDir: './public/',
-          css:     [minifyCss(), rev()],
-          html:    [minifyHtml({ empty: true })],
-          js:      [ngmin(), uglify(), rev()],
-          js_lib:  [uglify(), rev()]
+      	  assetsDir: './dist/',
       }))
       .pipe(gulp.dest('../dist/'));
 });
