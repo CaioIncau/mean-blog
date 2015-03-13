@@ -11,7 +11,9 @@ var gulp = require('gulp'),
     gulpSequence = require('gulp-sequence'),
     autoprefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
+    gutil = require('gulp-util'),
     concat = require('gulp-concat');
+
 
 
 gulp.task('move',['clean_all'], function(){
@@ -22,7 +24,7 @@ gulp.task('move',['clean_all'], function(){
 });
 
 gulp.task('views', function() {
-  return gulp.src('./public/partials/*.html')
+  return gulp.src('.dist/public/partials/*.html')
       .pipe(templateCache({
          module: 'myblog'
       }))
@@ -49,37 +51,27 @@ gulp.task('html', function() {
   };
  
   return gulp.src('public/partials/*.html')
-    .pipe(minifyHtml(opts))
-    .pipe(gulp.dest('dist/html'));
+  .pipe(minifyHtml(opts))
+  .pipe(gulp.dest('dist/public/partials'));
 });
 
 gulp.task('css', function(){
-	gulp.src('public/css/*.css')
+	return gulp.src('public/css/*.css')
 	    .pipe(minifyCss())
 	    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
 	    .pipe(concat('style.min.css'))
-    	.pipe(gulp.dest('dist/css'))
+    	.pipe(gulp.dest('dist/public/css'));
 });
 
 gulp.task('js', function () {
    return gulp.src(['public/js/**/*.js','public/js/*.js'])
-   	  .pipe(ngmin())
-      .pipe(uglify())
+      .pipe(uglify().on('error', gutil.log))
       .pipe(concat('app.js'))
-      .pipe(gulp.dest('dist/js'));
+      .pipe(gulp.dest('dist/public/js'));
 });
 
-gulp.task('html', function () {
-   return gulp.src(['public/js/**/*.js','public/js/*.js'])
-   	  .pipe(ngmin())
-      .pipe(uglify())
-      .pipe(concat('app.js'))
-      .pipe(gulp.dest('dist/js'));
-});
-
-
-gulp.task('usemin', ['views','html','css','js'], function() {
-  gulp.src('./app/views/index.ejs')
+ gulp.task('usemin', ['views','html','css','js'], function() {
+  return gulp.src('./app/views/index.ejs')
       .pipe(inject(gulp.src('../.tmp/js/templates.js', {read: false}),
         {
           relative: false,

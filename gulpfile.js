@@ -1,88 +1,31 @@
-var gulp = require('gulp'),
-    usemin = require('gulp-usemin'),
-    uglify = require('gulp-uglify'),
-    minifyHtml = require('gulp-minify-html'),
-    templateCache = require('gulp-angular-templatecache'),
-    minifyCss = require('gulp-minify-css'),
-    ngmin = require('gulp-ngmin'),
-    inject = require('gulp-inject'),
-    rev = require('gulp-rev'),
-    clean = require('gulp-clean'),
-    gulpSequence = require('gulp-sequence'),
-    autoprefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
-    gutil = require('gulp-util'),
-    concat = require('gulp-concat');
-
-
-
-gulp.task('move',['clean_all'], function(){
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src('./**', { base: './' })
-  .pipe(gulp.dest('dist'));
-});
-
-gulp.task('views', function() {
-  return gulp.src('.dist/public/partials/*.html')
-      .pipe(templateCache({
-         module: 'myblog'
-      }))
-      .pipe(gulp.dest('./.tmp/js'));
-});
-
-gulp.task('clean_all', function () {
-  return gulp.src(['.tmp/','dist/'], {read: false})
-             .pipe(clean());
-});
+var gulp = require('gulp'); 
+var concat = require('gulp-concat');
+var autoprefix = require('gulp-autoprefixer');
+var minifyCSS = require('gulp-minify-css');
+var rename = require('gulp-rename');
  
-gulp.task('clean_tmp', function () {
-  return gulp.src('./.tmp/', {read: false})
-             .pipe(clean());
-});
-
-gulp.task('html', function() {
-  var opts = {
-    conditionals: true,
-    spare: true,
-    empty: false,
-    comments: false,
-    quotes: false
-  };
+// include plug-ins
+var changed = require('gulp-changed');
+var minifyHTML = require('gulp-minify-html');
  
-  return gulp.src('public/partials/*.html')
-  .pipe(minifyHtml(opts))
-  .pipe(gulp.dest('dist/public/partials'));
+// minify new or changed HTML pages
+gulp.task('minify-html', function() {
+ var opts = {empty:true, quotes:true};
+ var htmlPath = {htmlSrc:'public/partials/*.html', htmlDest:'build/public/partials/'};
+ 
+  return gulp.src(htmlPath.htmlSrc)
+    .pipe(changed(htmlPath.htmlDest))
+    .pipe(minifyHTML(opts))
+    .pipe(gulp.dest(htmlPath.htmlDest));
 });
 
-gulp.task('css', function(){
-	return gulp.src('public/css/*.css')
-	    .pipe(minifyCss())
-	    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
-	    .pipe(concat('style.min.css'))
-    	.pipe(gulp.dest('dist/public/css'));
+gulp.task('minify-css', function() {
+var cssPath = {cssSrc:['./public/css/*.css', '!*.min.css', '!/**/*.min.css'], cssDest:'./build/public/css/'};
+ 
+  return gulp.src(cssPath.cssSrc)
+    .pipe(concat('styles.css'))
+    .pipe(autoprefix('last 2 versions'))
+    .pipe(minifyCSS())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(cssPath.cssDest));
 });
-
-gulp.task('js', function () {
-   return gulp.src(['public/js/**/*.js','public/js/*.js'])
-      .pipe(uglify().on('error', gutil.log))
-      .pipe(concat('app.js'))
-      .pipe(gulp.dest('dist/public/js'));
-});
-
- gulp.task('usemin', ['views','html','css','js'], function() {
-  return gulp.src('./app/views/index.ejs')
-      .pipe(inject(gulp.src('../.tmp/js/templates.js', {read: false}),
-        {
-          relative: false,
-          starttag: '<!-- inject:templates:js -->',
-          ignorePath: 'app'
-        }
-      ))
-      .pipe(usemin({
-      	  assetsDir: './dist/',
-      }))
-      .pipe(gulp.dest('../dist/'));
-});
-
-gulp.task('build', gulpSequence('clean_all', 'usemin', 'clean_tmp'));
