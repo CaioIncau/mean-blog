@@ -1,6 +1,3 @@
-body{
-	font-family: ltc-bodoni-175;
-}
 .main-menu a{
 	text-decoration:none;
 	color: black;
@@ -20,6 +17,7 @@ body{
 	margin: 0em;
 	width: 100%;
 	text-align: center;
+	font-family: "Bodoni MT", Didot, "Didot LT STD", "Book Antiqua", Garamond, "Times New Roman", serif;
 }
 
 .main-menu .fa-bars{
@@ -54,6 +52,7 @@ h2{
 .container{
 	width: 90%;
 	margin: 2em auto;
+	font-family: Georgia, Times, "Times New Roman", serif;
 }
 
 #about,#portofolio,#know{
@@ -65,7 +64,6 @@ h2{
 	color: rgb(46,46,46);
 	font-weight: 400;
 	line-height: 1.3em;
-	font-family: 'Lora';
 }
 #about p a , .cards-container div a{
 	text-decoration: none;
@@ -115,7 +113,6 @@ h2{
 }
 .card-know{
 	flex:1;
-	font-family: "Lora";
 	min-width: 200px;
 }
 .cards-container .education{
