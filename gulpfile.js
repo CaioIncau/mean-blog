@@ -7,7 +7,10 @@ var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
 var changed = require('gulp-changed');
 var minifyHTML = require('gulp-minify-html');
- 
+var ngmin = require('gulp-ngmin');
+var gutil = require('gulp-util');
+var lib    = require('bower-files')();
+
 // minify new or changed HTML pages
 gulp.task('minify-html', function() {
  var opts = {empty:true, quotes:true};
@@ -35,7 +38,13 @@ var jsPath = {jsSrc:['./public/js/main.js','./public/js/**/*.js'], jsDest:'./bui
   gulp.src(jsPath.jsSrc)
     .pipe(concat('ngscripts.js'))
     .pipe(stripDebug())
-    .pipe(uglify())
+    .pipe(uglify({mangle: false}))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(jsPath.jsDest));
+});
+
+gulp.task('bower', function () {
+	gulp.src('./public/vendor/**/*.min.js')
+    .pipe(concat('lib.min.js'))
+    .pipe(gulp.dest('./build/public/js'));
 });
