@@ -23,7 +23,7 @@ gulp.task('minify-html', function() {
 });
 
 gulp.task('minify-css', function() {
-var cssPath = {cssSrc:['./public/css/*.css', '!*.min.css', '!/**/*.min.css'], cssDest:'./build/public/css/'};
+var cssPath = {cssSrc:['./public/css/*.css', '!*.min.css', '!/**/*.min.css'], cssDest:'public'};
  
   return gulp.src(cssPath.cssSrc)
     .pipe(concat('styles.css'))
@@ -34,7 +34,7 @@ var cssPath = {cssSrc:['./public/css/*.css', '!*.min.css', '!/**/*.min.css'], cs
 });
 
 gulp.task('js', function() {
-var jsPath = {jsSrc:['./public/js/main.js','./public/js/**/*.js'], jsDest:'./build/public/js'};
+var jsPath = {jsSrc:['./public/js/main.js','./public/js/**/*.js'], jsDest:'public'};
   gulp.src(jsPath.jsSrc)
     .pipe(concat('ngscripts.js'))
     .pipe(stripDebug())
@@ -46,5 +46,14 @@ var jsPath = {jsSrc:['./public/js/main.js','./public/js/**/*.js'], jsDest:'./bui
 gulp.task('bower', function () {
 	gulp.src('./public/vendor/**/*.min.js')
     .pipe(concat('lib.min.js'))
-    .pipe(gulp.dest('./build/public/js'));
+    .pipe(gulp.dest('./public'));
+});
+
+gulp.task('default', ['minify-html', 'minify-css', 'js'], function() {
+  // watch for HTML changes
+  gulp.watch('.public/js/partials/*.html', ['minify-html']);
+  // watch for JS changes
+  gulp.watch('.public/js/**/*.js', ['bundle-scripts']);
+  // watch for CSS changes
+  gulp.watch('./public/css/*.css', ['minify-css']);
 });
