@@ -5,11 +5,13 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
+var compression = require('compression');
 
 module.exports = function() {
   var app = express();
 
   app.set('port', 3000);
+  app.use(compression());
   app.use(express.static('./public'));
   app.set('view engine', 'ejs');
   app.set('views', './app/views');
@@ -43,6 +45,7 @@ module.exports = function() {
     .into(app);
 
   app.get('*', function(req, res) {
+    res.setHeader('Cache-Control', 'public, max-age=345600'); // 4 days
     res.status(404).render('404');
   });
   return app;
