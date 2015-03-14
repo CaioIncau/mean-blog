@@ -19,6 +19,9 @@ module.exports = function(app) {
         .get(controller.listaPosts)
         .post(auth, controller.salvaPost);
 
+    app.route('/posts/:id')
+        .get(controller.obtemPost);
+
     // route to test if the user is logged in or not 
     app.get('/loggedin', function(req, res) 
     	{ res.send(req.isAuthenticated() ? req.user : '0'); }); 

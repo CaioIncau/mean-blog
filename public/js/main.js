@@ -53,6 +53,14 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
       controller: 'HomeController'
     });
 
+    $routeProvider.when('/post/:postId', {
+      templateUrl: 'partials/formPost.html', 
+      resolve: {
+          loggedin: checkLoggedin
+        },
+      controller: 'HomeController'
+    });
+
     $routeProvider.when('/', {
       templateUrl: 'partials/about.html',
       controller: 'HomeController'

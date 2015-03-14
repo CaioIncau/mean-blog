@@ -1,9 +1,8 @@
 angular.module('myblog').controller('HomeController',['$scope', '$routeParams', '$resource',
   function($scope, $routeParams, $resource) {
   	var Post = $resource('/posts/:id');
-
-
-  	if($routeParams.PostId) {
+  	console.log("id"+ $routeParams.postId);
+  	if($routeParams.postId) {
 	  	Post.get({id: $routeParams.postId},
 	    function(post) {
 		    $scope.post = post;
@@ -14,14 +13,14 @@ angular.module('myblog').controller('HomeController',['$scope', '$routeParams', 
 		    };
 		    console.log(erro);
 		});
-	    console.log($routeParams.PostId);
 	}else{
 		$scope.post = new Post();
 	}
 
 
   	$scope.salva = function() {
-		console.log($scope.post)
+  		console.log("rota de salvar");
+		console.log($scope.post);
 		$scope.post.$save();
 	};
   
