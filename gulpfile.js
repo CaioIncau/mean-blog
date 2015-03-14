@@ -36,9 +36,9 @@ var cssPath = {cssSrc:['./public/css/*.css', '!*.min.css', '!/**/*.min.css'], cs
 gulp.task('js', function() {
 var jsPath = {jsSrc:['./public/js/main.js','./public/js/**/*.js'], jsDest:'public'};
   gulp.src(jsPath.jsSrc)
-    .pipe(concat('ngscripts.js'))
-    .pipe(stripDebug())
-    .pipe(uglify({mangle: false}))
+    .pipe(stripDebug().on('error', gutil.log))
+    .pipe(concat('ngscripts.js').on('error', gutil.log))
+    .pipe(uglify({mangle: false}).on('error', gutil.log))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(jsPath.jsDest));
 });

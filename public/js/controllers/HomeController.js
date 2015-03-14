@@ -1,7 +1,6 @@
-angular.module('myblog').controller('HomeController',['$scope', '$routeParams', '$resource',
-  function($scope, $routeParams, $resource) {
+angular.module('myblog').controller('HomeController',['$http','$scope', '$routeParams', '$resource',
+  function($http,$scope, $routeParams, $resource) {
   	var Post = $resource('/posts/:id');
-  	console.log("id"+ $routeParams.postId);
   	if($routeParams.postId) {
 	  	Post.get({id: $routeParams.postId},
 	    function(post) {
@@ -17,6 +16,16 @@ angular.module('myblog').controller('HomeController',['$scope', '$routeParams', 
 		$scope.post = new Post();
 	}
 
+ 	$http.get('/loggedin').success(function(user){
+	        // Authenticated
+			$scope.auth=false;
+
+	        if (user !== '0'){
+	          	$scope.auth=true;
+	        }
+
+		console.log("Auth ? "+$scope.auth)
+	});
 
   	$scope.salva = function() {
   		console.log("rota de salvar");
