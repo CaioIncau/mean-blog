@@ -18,6 +18,10 @@ module.exports = function(app) {
     app.route('/posts')
         .get(controller.listaPosts)
         .post(auth, controller.salvaPost);
+    app.route('/posts/:pageNumber')
+        .get(controller.listaPosts);
+
+
 
     app.route('/posts/:id')
         .get(controller.obtemPost);

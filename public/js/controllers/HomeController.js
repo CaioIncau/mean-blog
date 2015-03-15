@@ -16,6 +16,20 @@ angular.module('myblog').controller('HomeController',['$http','$scope', '$routeP
 		$scope.post = new Post();
 	}
 
+
+
+	 if($routeParams.pageNumber){
+  	  	$http.get("/posts/"+$routeParams.pageNumber)
+  	  	.then(function(posts) {
+    		$scope.posts = posts.data;
+    	});
+	}else{
+	  	Post.query(function(posts) {
+		      $scope.posts = posts;
+		});
+	}
+	console.log($scope.posts);
+
  	$http.get('/loggedin').success(function(user){
 	        // Authenticated
 			$scope.auth=false;
@@ -28,12 +42,13 @@ angular.module('myblog').controller('HomeController',['$http','$scope', '$routeP
 	});
 
   	$scope.salva = function() {
-  		console.log("rota de salvar");
-		console.log($scope.post);
 		$scope.post.$save();
 	};
-  
-  Post.query(function(posts) {
-      $scope.posts = posts;
-   });
+
+	 $scope.showScope = function(e) {
+        console.log(angular.element(e.srcElement).scope());
+    }
+    console.log($scope);
+
+ 
 }]);

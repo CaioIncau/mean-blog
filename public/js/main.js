@@ -32,6 +32,10 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
       controller: 'HomeController'
     });
 
+  $routeProvider.when('/blog/:pageNumber', {
+      templateUrl: 'partials/blog.html',
+      controller: 'HomeController'
+    });
     $routeProvider.when('/post', {
     	templateUrl: 'partials/formPost.html', 
     	resolve: {

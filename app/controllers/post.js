@@ -26,7 +26,11 @@ controller.obtemPost = function(req, res) {
   };
 
   controller.listaPosts = function(req, res) {
-    var promise = Post.find().exec();
+    console.log(req.params);
+    var limit = req.params.pageNumber || 1; 
+    var max = limit*10;
+    var min = max-10;
+    var promise = Post.find().sort({createdAt: 'descending'}).skip(min).limit(max).exec();
     promise.then(
       function(posts) {
         res.json(posts);
