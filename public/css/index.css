@@ -43,10 +43,11 @@ strong{
 	font-weight: bold;
 	margin: .5em 0em ;
 }
-h2{
+.page-title{
 	font-size: 2em;
 	font-style: italic;
 	margin: 2em 0em;
+	text-align: center;
 }
 
 .container{
@@ -152,12 +153,13 @@ ul.social li a:hover:before{
 				
 			ul.social
 			{
+				justify-content: center;
+
 				margin: 0;
 				display: flex;
 				 -webkit-flex-wrap: wrap;
 				flex-wrap: wrap;
 				display: -webkit-flex;
-				justify-content:flex-start;
 			}
 			
 				ul.social li

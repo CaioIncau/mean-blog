@@ -1,0 +1,26 @@
+.blog-title{
+	text-align: center;
+}
+.blog-title_created{
+  	color: #878787;
+
+}
+.blog-post_title{
+	margin: 1em 0;
+  	font-size: 1.5em;
+  	color: #83BFCE;
+}
+.blog-post_text{
+  color: #878787;
+  width: 80%;
+  margin: 0 auto;
+  font-family: proxima-nova;
+}
+
+.blog-post_text p{
+	margin: 1em 0;
+}
+
+.blog-post_text img{
+	margin: 1em 0;
+}
