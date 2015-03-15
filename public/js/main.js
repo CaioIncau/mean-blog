@@ -1,19 +1,7 @@
 angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
-	.config(function($routeProvider, $httpProvider) {
+	.config(['$routeProvider','$httpProvider',function($routeProvider, $httpProvider) {
 
-     $httpProvider.interceptors.push(function($q, $location) {
-      return {
-        response: function(response) {
-          // do something on success
-          return response;
-        },
-        responseError: function(response) {
-          if (response.status === 401)
-            $location.url('/login');
-          return $q.reject(response);
-        }
-      };
-    });
+  
 
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){
@@ -24,13 +12,11 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
       $http.get('/loggedin').success(function(user){
         // Authenticated
         if (user !== '0')
-          /*$timeout(deferred.resolve, 0);*/
           deferred.resolve();
 
         // Not Authenticated
         else {
-          $rootScope.message = 'You need to log in.';
-          //$timeout(function(){deferred.reject();}, 0);
+  
           deferred.reject();
           $location.url('/');
         }
@@ -38,6 +24,7 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
 
       return deferred.promise;
     };
+
 
 
     $routeProvider.when('/blog', {
@@ -48,6 +35,14 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
     $routeProvider.when('/post', {
     	templateUrl: 'partials/formPost.html', 
     	resolve: {
+          loggedin: checkLoggedin
+        },
+      controller: 'HomeController'
+    });
+
+    $routeProvider.when('/post/:postId', {
+      templateUrl: 'partials/formPost.html', 
+      resolve: {
           loggedin: checkLoggedin
         },
       controller: 'HomeController'
@@ -79,4 +74,4 @@ angular.module('myblog', ['ngRoute', 'ngResource','ngSanitize'])
       controller: 'HomeController'
     });
 
-});
+}]);

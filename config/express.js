@@ -5,12 +5,15 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
+var compression = require('compression');
+
 
 module.exports = function() {
   var app = express();
 
   app.set('port', 3000);
-  app.use(express.static('./public'));
+  app.use(compression());
+  app.use(express.static('./public',{maxAge: 3155760000}));
   app.set('view engine', 'ejs');
   app.set('views', './app/views');
   app.use(bodyParser.urlencoded({
