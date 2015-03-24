@@ -11,9 +11,7 @@ describe("HomeController", function() {
 			$httpBackend.when('GET', '/posts/1')
                             .respond({_id: '1'});
 			$httpBackend.when('GET', '/posts')
-                            .respond([{}]);
-			$httpBackend.when('GET', '/loggedin')
-                            .respond('1');                            
+                            .respond([{}]);                           
 		});
 	});
 
@@ -34,7 +32,33 @@ describe("HomeController", function() {
 				$routeParams: {postId: 1},
 				'$scope': $scope
 			});
+			$httpBackend.when('GET', '/loggedin')
+                            .respond('1');  
 			$httpBackend.flush();
 			assert.isDefined($scope.post._id, 'id defined');
 	}));
+	it("Deve estar logado", 
+		inject(function($controller) {
+			$controller('HomeController', {
+				'$scope': $scope
+			});
+			$httpBackend.when('GET', '/loggedin')
+                            .respond('1');  
+			$httpBackend.flush();
+			assert.isTrue($scope.auth, 'deslogado');
+	}));
+	it("Deve estar deslogado", 
+		inject(function($controller) {
+			$controller('HomeController', {
+				'$scope': $scope
+			});
+			$httpBackend.when('GET', '/loggedin')
+                            .respond('0'); 
+			$httpBackend.flush();
+			assert.isFalse($scope.auth, 'deslogado');
+	}));
+
+
+
+
 });

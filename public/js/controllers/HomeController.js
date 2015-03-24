@@ -45,10 +45,5 @@ angular.module('myblog').controller('HomeController',['$http','$scope', '$routeP
 		$scope.post.$save();
 	};
 
-	 $scope.showScope = function(e) {
-        console.log(angular.element(e.srcElement).scope());
-    }
-    console.log($scope);
-
  
 }]);
